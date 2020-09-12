@@ -1,0 +1,297 @@
+module core {
+	/**
+	 *
+	 * @author yuxuefeng
+	 *
+	 */
+    export class SocketAPI {
+        private static s_instance: core.SocketAPI;
+        public isAutoCloseSocket: boolean = false;
+        private m_socket: egret.WebSocket;
+        private m_sendBuffer: core.ByteBuffer;
+        private m_receiveBuffer: core.ByteBuffer;
+        private _netState: NetStateEnum = NetStateEnum.close;
+        private m_sendQueue: any[] = [];
+        private isReconneting: boolean = false;
+        private m_sendNum = 0; //发送的num
+        private m_lastTime = 0; //最后发送的时间
+        private m_lock = false; //锁
+        private url: string = null;
+        private reConnectId: any = 0;
+
+        private get _manager(): BaskectBallManager {
+            return GameManager.getInstance().baskectBallManager;
+        }
+
+        public constructor() {
+            let socket: egret.WebSocket = new egret.WebSocket();
+            socket.type = egret.WebSocket.TYPE_STRING;
+            socket.addEventListener(egret.Event.CONNECT, this.onConnected, this);
+            socket.addEventListener(egret.ProgressEvent.SOCKET_DATA, this.onSocketData, this);
+            socket.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onIOError, this);
+            socket.addEventListener(egret.Event.CLOSE, this.onClosed, this);
+            this.m_socket = socket;
+            this.initUrl();
+        }
+
+
+        public initUrl() {
+            let self = this;
+            let urlAddr = GameConfig.socketBaseURL;
+            this.url = urlAddr;
+            if (UserManager.getInstance().getUid() && UserManager.getInstance().getOpenId()) {
+                self.connectURL();
+            } else if (GameConfig.gameType == "") { //测试环境直接连接
+                self.connectURL();
+            }
+
+            this._manager.addEventListener("CLOSE_NET", this.onClosed, this);
+        }
+
+
+        /**
+         * 心跳
+         */
+        private _timeout: number = 5000;//这个值后端给
+        private initNetTick(): void {
+            TimerManager.instance.removeTicks(this);
+            TimerManager.instance.addTick(20000, -1, this.onTick, this);
+        }
+        private passTime: number = 0;
+        private onTick(): void {
+            //console.info("==========onTick===========");
+            this.passTime += 1000;
+            //取时间差值
+            if (this.passTime > this._timeout) {
+                if (!this.isAutoCloseSocket) {
+                    console.info("=======socket 重连========");
+                    this.connectURL();
+                    this._netState = NetStateEnum.close;
+                    //this.showNetAlert();
+                }
+                this.passTime = 0;
+            } else {
+                this.m_socket.writeUTF("ping");
+            }
+        }
+
+        public reConnect() {
+            let self = this;
+            console.info("开始重连", this.isReconneting, this.reConnectId);
+            if (this.isReconneting) {
+                return;
+            }
+            if (this.reConnectId != 0) {
+                egret.clearInterval(this.reConnectId);
+                this.reConnectId = null;
+            }
+
+            if (GameConfig.gameType == "wx") {
+                wx.showLoading({ title: "网络重连中", mask: false });
+            }
+            this.isReconneting = true;
+            this.reConnectId = egret.setInterval(function () {
+                self.connectURL();
+            }, this, 3000)
+        }
+
+        public static getInstance(): core.SocketAPI {
+            if (SocketAPI.s_instance == null) {
+                SocketAPI.s_instance = new SocketAPI();
+            }
+            return SocketAPI.s_instance;
+        }
+
+        /**
+         * 认证
+         */
+        private auth() {
+            if (!UserManager.getInstance().getUid()) {
+                UserManager.getInstance().addEventListener(UserManager.USER_DATA_CHANGE, this.auth, this);
+                return;
+            }
+            var message: any = {};
+            message.token = UserManager.getInstance().token || "hello_test1";
+            message.time = UserManager.getInstance().time || "hello_test1";
+            message.open_id = UserManager.getInstance().getOpenId() || "test123456openId";
+            message.userId = UserManager.getInstance().getUid() || GameConfig.testUid;
+            message.appid = GameConfig.appid;
+            message.command = 1003;
+            message.channel = GameConfig.channelId;
+            console.log(message);
+            //this.sendData(1003,message);
+            this.m_socket.writeUTF(JSON.stringify(message));
+        }
+
+        private onConnected(event: egret.Event): void {
+            console.info("与Socket服务器链接成功,开始认证");
+            if (GameConfig.gameType == "wx") {
+                wx.hideLoading();
+            }
+            this._netState = NetStateEnum.authing;
+            this.isReconneting = false;
+            egret.clearInterval(this.reConnectId);
+            this.reConnectId = null;
+            this.auth();
+        }
+
+        //认证成功
+        private authSucc() {
+            console.info("与Socket服务器认证成功");
+            this._netState = NetStateEnum.connected;
+            this.initNetTick();
+            this.m_socket.writeUTF("ping");
+            this.isAutoCloseSocket = false;
+            core.EventCenter.getInstance().sendEvent(new EventData(EventID.SOCKET_CONNECT));
+            this.userLogin();
+            this.tryExec();
+        }
+
+        public userLogin() {
+            let json = {
+                "open_id": UserManager.getInstance().getOpenId(),
+                "userId": UserManager.getInstance().getUid(),
+                "appid": GameConfig.appid,
+                "nickName": UserManager.getInstance().getUserData().nickname,
+                "avatarUrl": UserManager.getInstance().getUserData().avatar_url,
+                "gender": UserManager.getInstance().getUserData().gender,
+                "fromtype": 0,
+                "subtype": 0,
+                "command": 2001,
+                "shareOpenId": -1
+            }
+            this.sendData(2001, json);
+        }
+
+        private onSocketData(event: egret.ProgressEvent): void {
+            let self = this;
+            //读取数据
+            var data: any = this.m_socket.readUTF();
+            if (data == "ping") {
+                self.passTime = 0;
+                return;
+            }
+            try {
+                data = JSON.parse(data);
+            } catch (e) {
+                console.info('解析后端数据出错了');
+                data = null;
+            }
+            this.m_lock = false;
+            this.tryExec();
+            if (!data || data.ret == -1) {
+                console.info("==============与后端 连接出错了==================")
+                console.info(data);
+                core.EventCenter.getInstance().sendEvent(new EventData('error' + data.command, data));
+                ToastManager.addPopUp(data.msg);
+                return;
+            }
+            egret.log("收到后端协议：" + JSON.stringify(data));
+            core.EventCenter.getInstance().sendEvent(new EventData('event' + data.command, data));
+            switch (data.command) {
+                case 1003://认证
+                    self.authSucc();//认证成功
+                    break;
+                case 2001: //登陆 相当于原来的save
+                    UserManager.getInstance().maxScore = data.data.max_score;
+                    SwitchManager.switchs = data.data.switchs;
+                    break;
+            }
+        }
+
+        private onIOError(event: egret.IOErrorEvent): void {
+            console.info("与Socket服务器链接失败");
+            this.m_socket.close();
+            this._netState = NetStateEnum.close;
+            core.EventCenter.getInstance().sendEvent(new EventData(EventID.SOCKET_IOERROR));
+        }
+
+        private onClosed(event: egret.Event): void {
+            console.info("与Socket服务器断开链接");
+            this.m_socket.close();
+            this._netState = NetStateEnum.close;
+            core.EventCenter.getInstance().sendEvent(new EventData(EventID.SOCKET_CLOSE));
+            this.reConnect();
+        }
+
+        private showNetAlert(): void {
+            if (!this.isAutoCloseSocket) {
+                let self = this;
+                if (this._netState == NetStateEnum.close) {
+                    if (!this.isAutoCloseSocket) {
+                        //ReconnectView.getInstance().popup("网络重连中");
+                    }
+                }
+            }
+        }
+
+        private flushToServer(): void {
+            console.info("flush数据到Socket服务器");
+            this.m_socket.writeBytes(this.m_sendBuffer);
+            this.m_socket.flush();
+            this.m_sendBuffer.clear();
+        }
+
+        public sendData(command: number, data: any): void {
+            let self = this;
+            data.command = command;
+            self.m_sendQueue.push(data);
+            this.tryExec();
+        }
+
+        /**
+         * 尝试执行命令
+         */
+        public tryExec() {
+            console.info("尝试执行命令");
+            if (!this.m_lock && this._netState == NetStateEnum.connected) {
+                this.m_lock = true;
+                this.m_lastTime = new Date().getTime();
+                let data = this.m_sendQueue.shift();
+                if (!data) {
+                    this.m_lock = false;
+                    return;
+                }
+                console.info("弹出来的数据为:", data);
+                data.open_id = UserManager.getInstance().getOpenId();
+                data.userId = UserManager.getInstance().getUid();
+                data.appid = GameConfig.appid;
+                data.channel = GameConfig.channelId;
+                data = JSON.stringify(data);
+                this.m_socket.writeUTF(data);
+                console.info("发送" + data);
+            }
+
+            if (this.m_lock && (new Date().getTime() - this.m_lastTime > 40 * 1000)) {
+                this.m_lock = false;
+                this.tryExec();
+            }
+        }
+
+        public get socket(): egret.WebSocket {
+            return this.m_socket;
+        }
+
+        private _connectTimer: number = egret.getTimer();
+        public connectURL(): void {
+            if (this._netState < NetStateEnum.authing && this.url) {
+                console.info("start connected server", this.url);
+                this.m_socket.connectByUrl(this.url);
+            } else if (this.reConnectId) {
+                console.info('清理重连ID');
+                egret.clearInterval(this.reConnectId);
+                this.reConnectId = null;
+            }
+        }
+
+        public close(): void {
+            console.info("主动断开链接");
+            this.isAutoCloseSocket = true;
+            this.m_socket.close();
+        }
+
+        public get netState(): NetStateEnum {
+            return this._netState;
+        }
+    }
+}

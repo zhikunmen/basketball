@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ResultView" width="750" height="1334" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*">
+	<w:Declarations>
+		<tween:TweenGroup id="result">
+			<tween:TweenItem target="{m_guang}">
+				<tween:Set/>
+				<tween:To duration="5500">
+					<tween:props>
+						<e:Object rotation="{360}"/>
+					</tween:props>
+				</tween:To>
+
+
+
+			</tween:TweenItem>
+			<tween:TweenItem target="{m_star}">
+				<tween:Set>
+					<tween:props>
+						<e:Object scaleX="{1}" scaleY="{1}"/>
+					</tween:props>
+				</tween:Set>
+
+				<tween:To duration="300">
+					<tween:props>
+						<e:Object scaleX="{1.15}" scaleY="{1.15}"/>
+					</tween:props>
+				</tween:To>
+				<tween:To duration="200">
+					<tween:props>
+						<e:Object scaleX="{1}" scaleY="{1}"/>
+					</tween:props>
+				</tween:To>
+				<tween:To duration="300">
+					<tween:props>
+						<e:Object scaleX="{1.15}" scaleY="{1.15}"/>
+					</tween:props>
+				</tween:To>
+				<tween:To duration="200">
+					<tween:props>
+						<e:Object scaleX="{1}" scaleY="{1}"/>
+					</tween:props>
+				</tween:To>
+				<tween:Wait duration="4500"/>
+				<tween:Set/>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+		<tween:TweenGroup id="adCoin">
+			<tween:TweenItem target="{free_coin_ad_group}">
+				<tween:Set>
+					<tween:props>
+						<e:Object scaleX="{1}" scaleY="{1}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:To duration="250">
+					<tween:props>
+						<e:Object scaleX="{1.1}" scaleY="{1.1}"/>
+					</tween:props>
+				</tween:To>
+				<tween:To duration="500">
+					<tween:props>
+						<e:Object scaleX="{0.8}" scaleY="{0.8}"/>
+					</tween:props>
+				</tween:To>
+				<tween:To duration="250">
+					<tween:props>
+						<e:Object scaleX="{1}" scaleY="{1}"/>
+					</tween:props>
+				</tween:To>
+				<tween:Wait duration="250"/>
+				<tween:Set/>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+		<tween:TweenGroup id="finger">
+			<tween:TweenItem target="{m_finger}">
+				<tween:Set>
+					<tween:props>
+						<e:Object scaleX="{0.8}" scaleY="{0.8}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:To duration="250">
+					<tween:props>
+						<e:Object scaleX="{0.6}" scaleY="{0.6}"/>
+					</tween:props>
+				</tween:To>
+				<tween:To duration="250">
+					<tween:props>
+						<e:Object scaleX="{0.8}" scaleY="{0.8}"/>
+					</tween:props>
+				</tween:To>
+				<tween:Wait duration="500"/>
+				<tween:Set/>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+		<tween:TweenGroup id="collect">
+			<tween:TweenItem target="{m_coin_collect}">
+				<tween:Set>
+					<tween:props>
+						<e:Object scaleX="{1}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:To duration="100">
+					<tween:props>
+						<e:Object scaleX="{-1}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+	</w:Declarations>
+	<e:Image id="_bg" left="0" bottom="0" top="0" right="0" source="img_x_di_png"/>
+	<e:Group id="_top_group" horizontalCenter="0" height="74" bottom="100">
+		<e:Image id="m_home_btn" source="img_j_zhuye_png" scaleX="1" scaleY="1"/>
+		<e:Image id="m_restart_btn" source="img_j_jixu_png" scaleX="1" scaleY="1" x="150"/>
+
+		<e:Image id="m_skin_btn" scaleX="1" scaleY="1" x="300" y="0" source="img_j_q_png"/>
+		<e:Image id="m_skin_point" width="20" height="20" x="350" y="-2" source="img_hongdian_png"/>
+	</e:Group>
+	<e:Image id="m_finger" source="main_json.img_x_shou_png" x="552.78" scaleX="0.8" scaleY="0.8" anchorOffsetX="53.5" anchorOffsetY="60.5" bottom="55" touchEnabled="false"/>
+	<e:Image id="m_coin_total" bottom="0" horizontalCenter="0" source="img_coin_bg_png"/>
+	<e:Label id="m_total_coin" text="0" x="396.67" anchorOffsetX="75" width="150" anchorOffsetY="20" height="40" textAlign="center" verticalAlign="middle" bottom="14"/>
+	<e:Image source="img_j_di_png" y="209.84" horizontalCenter="0.5" x="155.00000000000003" scaleX="1" scaleY="1" scale9Grid="325,473,15,30" height="860"/>
+	<e:Image id="m_guang" source="img_j_guang_png" x="375" y="364.17" width="750" height="722" anchorOffsetX="375" anchorOffsetY="361" scaleX="1" scaleY="1"/>
+	<e:Image id="m_star" source="img_j_xing_png" horizontalCenter="1.5" anchorOffsetX="272.5" anchorOffsetY="258.26" y="330.99" x="209.49999999999997"/>
+	<e:Image id="_huangguan" source="img_j_qiu_png" y="204.73" horizontalCenter="-9" x="46.00000000000001" scaleX="1" scaleY="1"/>
+	<e:Group y="483.02" horizontalCenter="0" x="265" scaleX="1" scaleY="1" locked="true">
+		<e:Label id="m_score" text="102" x="160" y="2" scaleX="1" scaleY="1" height="50" verticalAlign="middle" textColor="0xfef9e7" size="40" fontFamily="SimHei" stroke="3" strokeColor="0x610200"/>
+		<e:Label text="Score:" size="50" stroke="3" strokeColor="0x610200" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" height="50" textAlign="center" verticalAlign="middle" textColor="0xfff4c7" fontFamily="SimHei" width="160"/>
+	</e:Group>
+	<e:Label id="m_rank" text="本局未上榜" y="573.62" horizontalCenter="0.5" stroke="2" strokeColor="0xffffff" bold="true" fontFamily="SimHei" size="26" textColor="0xff0000" x="309" scaleX="1" scaleY="1" locked="true"/>
+	<e:Group id="m_combo_group" x="0" y="607.14" anchorOffsetX="0" width="550" scaleX="1" scaleY="1" locked="true">
+		<e:Image id="m_combo_new" source="img_j_xinjilv_png" x="200" alpha="0"/>
+		<e:Label id="m_max_combo_label" text="Max Combox:" verticalCenter="0.5" x="201.11" textColor="0xffea5e" size="28" fontFamily="SimHei" bold="true"/>
+		<e:Label id="m_max_combo" text="15" size="26" strokeColor="0x000000" scaleX="1" scaleY="1" verticalCenter="0.5" right="0" textColor="0xfff0f0" fontFamily="SimHei"/>
+	</e:Group>
+	<e:Group id="m_clean_shot_group" x="0" y="652.14" anchorOffsetX="0" width="550" scaleX="1" scaleY="1" locked="true">
+		<e:Image id="m_clean_shot_new" source="img_j_xinjilv_png" x="200" alpha="0"/>
+		<e:Label id="m_clean_shot" text="4" size="26" strokeColor="0x000000" scaleX="1" scaleY="1" verticalCenter="0.5" right="0" textColor="0xfff0f0" fontFamily="SimHei"/>
+		<e:Label id="m_clean_shot_label" text="Clean Shots:" verticalCenter="0.5" x="201.11" textColor="0xffea5e" size="28" fontFamily="SimHei" bold="true"/>
+	</e:Group>
+	<e:Group id="m_ban_shot_group" x="0" y="697.14" anchorOffsetX="0" width="550" scaleX="1" scaleY="1" locked="true">
+		<e:Image id="m_ban_shot_new" source="img_j_xinjilv_png" x="200" alpha="0"/>
+		<e:Label id="m_ban_shot_label" text="Bank Shots:" verticalCenter="0.5" x="201.11" textColor="0xffea5e" size="28" fontFamily="SimHei" bold="true"/>
+		<e:Label id="m_ban_shot" text="22" size="26" strokeColor="0x000000" scaleX="1" scaleY="1" verticalCenter="0.5" right="0" textColor="0xfff0f0" fontFamily="SimHei"/>
+	</e:Group>
+	<e:Group id="m_high_shot_group" x="0" y="742.14" anchorOffsetX="0" width="550" scaleX="1" scaleY="1" locked="true">
+		<e:Image id="m_high_shot_new" source="img_j_xinjilv_png" x="200" alpha="0"/>
+		<e:Label id="m_high_shot" text="4" size="26" strokeColor="0x000000" scaleX="1" scaleY="1" verticalCenter="0.5" right="0" textColor="0xfff0f0" fontFamily="SimHei"/>
+		<e:Label id="m_high_shot_label" text="High Arc Shots:" verticalCenter="0.5" x="201.11" textColor="0xffea5e" size="28" fontFamily="SimHei" bold="true"/>
+	</e:Group>
+	<e:Group id="m_buzzer_shot_group" x="0" y="789.14" anchorOffsetX="0" width="550" scaleX="1" scaleY="1" locked="true">
+		<e:Image id="m_buzzer_shot_new" source="img_j_xinjilv_png" x="200" alpha="0"/>
+		<e:Label id="m_buzzer_shot_label" text="Buzzer Beater:" verticalCenter="0.5" x="201.11" textColor="0xffea5e" size="28" fontFamily="SimHei" bold="true"/>
+		<e:Label id="m_buzzer_shot" text="0" size="26" strokeColor="0x000000" scaleX="1" scaleY="1" verticalCenter="0.5" right="0" textColor="0xfff0f0" fontFamily="SimHei"/>
+	</e:Group>
+	<e:Group id="m_collec_coin_group" x="20" y="841.13" anchorOffsetX="0" width="530" scaleX="1" scaleY="1" visible="false" locked="true">
+		<e:Label id="m_cur_coin_label" text="Number of gold coins obtained: " verticalCenter="0.5" x="170.52" textColor="0xFFEA5E" size="28" fontFamily="SimHei" bold="true" width="300" height="28"/>
+		<e:Label id="m_cur_coin_number" text="0" size="26" strokeColor="0x000000" scaleX="1" scaleY="1" verticalCenter="0" right="0" textColor="0xFFF0F0" fontFamily="SimHei"/>
+	</e:Group>
+	<e:Group id="free_coin_group" y="943.94" horizontalCenter="1" x="201" scaleX="1" scaleY="1">
+		<e:Image source="img_j_annue_png" scaleX="1" scaleY="1" width="235" x="-1.52" height="40"/>
+		<e:Label text="40" verticalCenter="1" x="136.06" textColor="0xffea5a" size="26" fontFamily="SimHei"/>
+		<e:Image id="m_free_coin_image" scaleX="1" scaleY="1" right="114" verticalCenter="1" width="32" height="32" x="489" y="-310" source="img_jinbi_xiao_png"/>
+	</e:Group>
+	<e:Group id="free_coin_ad_group" y="877.15" horizontalCenter="0.5" x="200" anchorOffsetX="169.5" anchorOffsetY="32.5">
+		<e:Image anchorOffsetX="0" width="339" anchorOffsetY="0" scaleX="1" scaleY="1" height="65" source="img_fuhu3_png"/>
+		<e:Image scaleX="1" scaleY="1" right="4" top="0" source="img_shiping_png"/>
+		<e:Label text="3X" x="128.53" fontFamily="SimHei" size="26" verticalCenter="0.5" textColor="0xffffff" strokeColor="0x734600" stroke="3"/>
+		<e:Image id="m_ad_coin_image" scaleX="1" scaleY="1" right="147" verticalCenter="0.5" width="32" height="32" source="img_jinbi_xiao_png"/>
+		<e:Label text="40" x="197.06" fontFamily="SimHei" size="26" verticalCenter="0.5" strokeColor="0x734600" stroke="3" textColor="0xffffff"/>
+	</e:Group>
+	<e:Image id="m_coin_collect" scaleX="1" scaleY="1" width="32" height="32" source="img_jinbi_xiao_png" y="1030" x="363" anchorOffsetX="16" anchorOffsetY="16" visible="false"/>
+	<e:Image id="m_close" source="img_gb_png" right="50" top="50" scaleX="0.8" scaleY="0.8"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</e:Skin>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ChangeSkinExml" width="750" height="1334" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:tween="egret.tween.*">
+	<w:Declarations>
+		<tween:TweenGroup id="toast">
+			<tween:TweenItem target="{m_toast_group}">
+				<tween:Set>
+					<tween:props>
+						<e:Object y="{737}" alpha="{0}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:To duration="250">
+					<tween:props>
+						<e:Object y="{637}" alpha="{1}"/>
+					</tween:props>
+				</tween:To>
+				<tween:Wait duration="1000"/>
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{1}" y="{637}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:To duration="250">
+					<tween:props>
+						<e:Object y="{537}" alpha="{0}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+	</w:Declarations>
+	<e:Rect fillColor="0x71D7FD" left="0" bottom="0" top="0" right="0"/>
+	<e:Image id="m_skin_back" source="img_fanhui_png" x="30" y="30"/>
+	<e:Button id="m_ball_tab" label="" x="0" y="134" enabled="true">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="img_s_annue_2_png" source.down="img_s_annue_1_png" source.disabled="img_s_annue_3_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Image id="m_ball_tab_img" source="img_s_annue_4_png" x="46" y="149" touchEnabled="false"/>
+	<e:Label id="m_ball_tab_label" text="ball" x="131" y="160" textColor="0xd2eaff" fontFamily="SimHei" strokeColor="0x003d8a" stroke="2"/>
+	<e:Button id="m_hoop_tab" label="" x="247" y="134" enabled="false">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="img_s_annue_2_png" source.down="img_s_annue_1_png" source.disabled="img_s_annue_3_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Image id="m_hoop_tab_img" source="img_s_annue_7_png" x="280" y="154.5"/>
+	<e:Label id="m_hoop_tab_label" text="hoop" x="381.33" y="160" fontFamily="SimHei" strokeColor="0x2e445e" stroke="2" textColor="0xe0e9f1"/>
+	<e:Button id="m_basket_tab" label="" x="493" y="134" enabled="false">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="img_s_annue_2_png" source.down="img_s_annue_1_png" source.disabled="img_s_annue_3_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Image id="m_basket_tab_img" source="img_s_annue_8_png" x="524" y="150"/>
+	<e:Label id="m_basket_tab_label" text="basket" x="604" y="160" fontFamily="SimHei" strokeColor="0x2e445e" stroke="2" textColor="0xe0e9f1"/>
+	<e:Image source="img_s_tiao_png" x="0" width="750" y="216"/>
+	<e:Image source="img_s_di_png" width="750" scale9Grid="91,39,10,239" top="238" bottom="0"/>
+	<e:Image id="_ban_1" source="img_s_ban_png" x="10" y="666" width="750"/>
+	<e:Image id="_ban_2" source="img_s_ban_png" x="0" y="435.06" width="750"/>
+	<e:Image id="_ban_3" source="img_s_ban_png" x="0" y="899.85" width="750"/>
+	<e:Image id="_ban_4" source="img_s_ban_png" x="0" y="1158" width="750"/>
+	<e:Image id="_ban_5" source="img_s_ban_png" y="1401" width="750"/>
+	<e:Image scaleX="1" scaleY="1" source="img_k_di_png" horizontalCenter="0" bottom="0"/>
+	<e:Group id="m_ownCoins" bottom="0" height="81" x="306" locked="true">
+
+
+		<e:Image verticalCenter="0.5" source="img_jinbi_xiao_png"/>
+		<e:Label id="m_coins" text="0" size="35" anchorOffsetX="0" textColor="0xf2ef52" verticalCenter="0" x="79" width="200"/>
+	</e:Group>
+	<e:Group id="m_skinItem_container" width="750" anchorOffsetX="0" anchorOffsetY="0" x="0" top="238" bottom="0" locked="true">
+		<e:layout>
+		<e:TileLayout requestedColumnCount="3" columnWidth="235" horizontalGap="0" verticalGap="0" paddingLeft="20" paddingRight="20"/>
+		</e:layout>
+	</e:Group>
+	<e:Group id="m_toast_group" horizontalCenter="0" y="637" touchEnabled="false" alpha="0" locked="true">
+		<e:Image source="di_1_png" touchEnabled="false"/>
+		<e:Label id="m_toast" text="皮肤购买成功" width="517" height="61" verticalAlign="middle" textAlign="center" size="36" fontFamily="SimHei" touchEnabled="false"/>
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,77 @@
+class LobbyViewBase extends core.EUIComponent {
+
+	/**
+	 * 广告icon
+	 */
+	protected _adIcon: eui.Image;
+	public constructor() {
+		super();
+	}
+
+	public childrenCreated() {
+		super.childrenCreated();
+
+		this.left = 0;
+		this.right = 0;
+		this.top = 0;
+		this.bottom = 0;
+	}
+
+
+	/**
+	 * 显示
+	 */
+	protected onShow(event?: egret.Event): void {
+		super.onShow(event);
+		this.getAdData();
+	}
+
+	protected onHide(event?: egret.Event): void {
+		super.onHide(event);
+	}
+
+	/**
+	 * 获取广告信息
+	 * http://192.168.1.232:8090/pages/viewpage.action?pageId=17924769
+	 */
+	private getAdData(): void {
+		let self = this;
+		let userId = UserManager.getInstance().getUid();
+		Api.get(Api.GET_JUMP_INFO + `?appId=${GameConfig.appid}&channel=${GameConfig.channelId}&userId=${userId}`).then((data: any) => {
+			console.info("广告信息", data);
+			self.dealAd(data.data);
+		})
+	}
+
+	protected dealAd(data: { icon: string, mAppid: string, transParam: string }): void {
+		if (!this._adIcon) {
+			this._adIcon = new eui.Image(data.icon);
+		}
+		this._adIcon.left = 0;
+		this._adIcon.bottom = 200;
+		this.addChild(this._adIcon);
+		this._adIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+			// wx.navigateToMiniProgram({
+			// 	appId: data.mAppid,
+			// 	path: data.transParam,
+			// 	extraData: {}
+			// })
+		}, this)
+	}
+	protected goGameHandler(evt: egret.Event): void {
+		GlobalManager.getInstance().goGame();
+	}
+
+	protected rankHandler(evt: egret.Event): void {
+	}
+
+	//分享
+	protected shareHandler(evt: egret.Event): void {
+		// WxKit.ZGSDKShare("LobbyViewBase", "m_share_btn", "share", "base");
+	}
+
+	public release() {
+		super.release();
+	}
+
+}

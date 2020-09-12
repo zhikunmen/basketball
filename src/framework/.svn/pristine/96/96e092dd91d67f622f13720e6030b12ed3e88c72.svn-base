@@ -1,0 +1,22 @@
+//分数界面
+class ScroeBaseView extends core.EUIComponent {
+
+    private _manager: ScoreManager;
+
+    public constructor() {
+        super();
+        this.skinName = "resource/assets/exml/ScroeViewExml.exml";
+
+        this._manager = GameManager.getInstance().scoreManager;
+    }
+
+    public childrenCreated() {
+        super.childrenCreated();
+
+        this.left = 0;
+        this.right = 0;
+        this.top = 0;
+        this.bottom = 0;
+    }
+}
+

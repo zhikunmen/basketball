@@ -1,0 +1,366 @@
+declare var ZGSDK: any;
+/**
+   * WxKit为优化使用小游戏中常用的函数方法调用
+   *
+   */
+
+const PLATFORM: WxPlatform = new WxPlatform();
+
+class WxKit {
+
+    // private static code = '';
+    private static iv = '';
+    private static enctypecode = '';
+
+    /**
+     * 调用login完成getUserInfo版登陆操作
+     */
+    public static async login() {
+        WxKit.ZGSDKInit();
+
+    }
+
+    private static async ZGSDKInit() {
+        let code = null;
+        let userInfo = null;
+        let result = null;
+        var wxAppId = GameConfig.wxAppId;//小程序分配的appId
+        let info = GameConfig.getShareInfo();
+        await ZGSDK.init({
+            appkey: GameConfig.appKey,  //应用key
+            platType: 102,
+            channel: GameConfig.channelId,   //渠道号
+            gameId: GameConfig.appid,  //游戏ID
+            appId: GameConfig.appid,  //应用ID
+            gameName: GameConfig.gameName,
+            thirdAppId: wxAppId,
+            gameVersion: GameConfig.gameVer,
+            userId: 0,
+            userName: "",
+            pwd: "",
+            domain: "365you.com",
+            wxAdunitId: GameConfig.adId,
+            wxBannerId: GameConfig.bannerAdId,
+            wxShareTitle: info.title || "",
+            wxShareImg: info.image || "",
+            appType: "minigame",
+            platClass: "Mobile",
+            platName: "jd_wy",
+            packageName: "jd_wy", //包名 : vivo
+
+            /**
+             * 登录回调
+             * @param {登录结果} ret
+             * @param {失败原因} code
+             * @param {用户信息} platInfo
+             */
+            loginBack: function (ret, code, platInfo) {
+                console.log("============登录回调========", ret);
+                console.log(code);
+                console.log(platInfo);
+
+                if (ret == true) {
+                    UserManager.getInstance().setUserData(platInfo);
+                    core.SocketAPI.getInstance();
+                }
+                ZGSDK.getShareData("normal");
+            }
+        });
+        let loginTimeout = egret.setTimeout(() => {
+            egret.clearTimeout(loginTimeout);
+            ZGSDK.login();
+        }, this, 4000);
+    }
+
+
+    /**
+     * 获取小游戏的启动信息和系统信息
+     */
+    private static async getGameInfo() {
+
+        if (GameConfig.gameType != "wx") {
+            return;
+        }
+
+        const launchInfo: LaunchOption = await wx.getLaunchOptionsSync();
+        launchData.setLaunchData(launchInfo);
+
+
+        //系统信息
+        const systemInfo: SystemInfo = await wx.getSystemInfoSync();
+        SystemData.setSystemData(systemInfo);
+    }
+
+
+    /**
+     * getUserInfo授权失败时重新弹出需授权弹窗,若拒绝则继续弹出
+     */
+    private static async reAuth() {
+        wx.hideLoading();
+        return new Promise((resolve, reject) => {
+            PLATFORM.showAuthModal()
+                .then(async (res: { authSetting }) => {
+                    if (res.authSetting['scope.userInfo']) {
+                        await PLATFORM.getUserInfo().then(res => { resolve(res); })
+                    } else {
+                        await WxKit.reAuth().then(res => { resolve(res); });
+                    }
+                })
+        })
+    }
+
+    /**
+     * 设置默认分享
+     */
+    public static setDefaultShare() {
+        console.log('set_default_share');
+        WxKit.ZGSDKShare("WEIXIN", "rightBtn", "share", "base");
+        // wx.showShareMenu({
+        //     withShareTicket: true,
+        //     success: (res) => {
+        //         console.log('setting_success'); console.log(res);
+        //     },
+        //     fail: (err) => { console.warn(err) }
+        // });
+        // wx.onShareAppMessage(function () {
+        //     let info = GameConfig.getShareInfo();
+        //     let iconId = info.iconId;
+        //     let userId = UserManager.getInstance().getUid();
+        //     let shareQuery = "scence=WEIXIN" + "&sponsorID=" + userId;
+
+        //     ReportManager.logEvent([1500, "WEIXIN", "WEIXIN", iconId, "SUCCESS"]);
+        //     return {
+        //         title: info.title || '',
+        //         imageUrl: info.image || '',
+        //         query: shareQuery
+        //     }
+        // });
+
+    }
+
+    /**
+     * zgsdk分享
+     * @param  {string} scene 场景，module模块，subModule：子模块
+     * @param  {string}  key  关键字（策划配置）
+     * @param  {boolean}  isLimitGroup 是否限制到群 
+     * @param  {function} successObj 
+     * @param  {function} failObj 传回了ret 和code ret=true/false,code=失败原因(-100非群,-101同群多次分享,-103分享失败
+     * @param  {Object} thisObj
+     */
+    public static ZGSDKShare(scene: string, module: string, subModule: string, key: string, isLimitGroup: boolean = false, query?: string, successObj?: any, failObj?: any, thisObj?: any) {
+        let shareInfo = ZGSDK.getShareData(key);
+        let shareQuery = "scence=" + scene + "&sponsorID=" + UserManager.getInstance().getUid();
+        if (query) {
+            shareQuery = shareQuery + "&" + query;
+        }
+        let info = {
+            title: shareInfo.title,
+            imageUrl: shareInfo.imageUrl,
+            query: shareQuery
+        }
+        if (isLimitGroup == false) {
+            console.log("==============没有限制群================");
+            ZGSDK.shareAppMessage(info, scene, module, subModule);
+        } else {
+            ZGSDK.shareByTicket(scene, module, subModule, (ret, code?: any) => {
+                if (ret == true) {
+                    if (successObj && thisObj) {
+                        successObj.apply(thisObj);
+                    }
+                } else {
+                    if (failObj && thisObj) {
+                        failObj.apply(thisObj, [ret, code])
+                    }
+                }
+            }, info)
+        }
+
+    }
+
+    /**
+     * 分享重生调用
+     * @param  {string} title
+     * @param  {string} imgUrl?
+     */
+    public static async rebornGame(title: string, imgUrl?: string) {
+        return await WxKit.ZGSDKShare("RebornView", "reborn", "share", "base", true);
+    }
+
+
+    public static linkOpenData(message: {}, width?: number, height?: number) {
+        let basic = {
+            isDisplay: "true",
+            userInfo: UserManager.getInstance().getUserData()
+        }
+
+        for (let key in message) {
+            basic[key] = message[key];
+        }
+
+        let open_data_container = new egret.Sprite();
+        let openDataContext = wx.getOpenDataContext();
+        const bitmapdata = new egret.BitmapData(window["sharedCanvas"]);
+        bitmapdata.$deleteSource = false;
+        const texture = new egret.Texture();
+        texture._setBitmapData(bitmapdata);
+        let bitmap: egret.Bitmap;
+        bitmap = new egret.Bitmap(texture);
+        bitmap.width = width || GameConfig.curWidth();
+        bitmap.height = height || GameConfig.curHeight();
+        bitmap.name = "openData";
+        open_data_container.addChild(bitmap);
+
+        egret.startTick((timeStarmp: number) => {
+            egret.WebGLUtils.deleteWebGLTexture(bitmapdata.webGLTexture);
+            bitmapdata.webGLTexture = null;
+            return false;
+        }, this);
+
+        console.log("===========和开放域通讯============", basic);
+        openDataContext.postMessage(basic);
+        console.log('link_done');
+        return open_data_container;
+    }
+
+    // 上传成绩至开放数据域
+    public static async uploadScore(score: number) {
+        if (UserManager.getInstance().maxScore < score) {
+            UserManager.getInstance().maxScore = score;
+            core.SocketAPI.getInstance().sendData(2004, {
+                "max_score": score,
+                "date": Utils.getNowDate()
+            });
+        }
+        await PLATFORM.setKVData({ "score": UserManager.getInstance().maxScore + '', "date": Utils.getNowDate() })
+            .then(res => { });
+        return true;
+    }
+
+    /**
+     * 设置回到前台事件处理音频及群排行
+     */
+    public static setOnShowRule() {
+        wx.onShow(() => {
+            SoundMgr.getInstance().playBGM();
+        })
+    }
+
+    /**
+     * 震动
+     */
+    public static shake(): void {
+        if (GameConfig.gameType == "wx") {
+            wx.vibrateLong({});
+        }
+    }
+
+    /**
+     * 震动
+     */
+    public static shakeShort(): void {
+        if (GameConfig.gameType == "wx") {
+            wx && wx.vibrateShort({});
+        }
+    }
+
+    /**
+     * 流量主视频广告调用方法
+     * 
+     */
+    private static video_ads = {};
+    private static current_video_ad_id = '';
+
+    public static showVideoAd(ad_id: string, success_callback: Function, err_callback?: Function) {
+        // 无ad_id时弹出警告
+        if (!(ad_id)) {
+            wx.showModal({
+                title: '系统提示', content: "请填入ad_id", showCancel: false, cancelText: "", confirmText: "确定",
+                success: () => {
+                    err_callback();
+                }
+            })
+            return
+        }
+        // 低版本兼容方法
+        if (!(typeof wx.createRewardedVideoAd == 'function')) {
+            wx.showModal({
+                title: '系统提示', content: "您的微信版本太低，暂时无法获取广告", showCancel: false, cancelText: "", confirmText: "确定",
+                success: () => {
+                    success_callback();
+                }
+            })
+            return
+        }
+        this.video_ads[ad_id] = wx.createRewardedVideoAd({
+            adUnitId: ad_id
+        })
+        this.current_video_ad_id = ad_id;
+        // 播放广告时暂停背景音乐
+        SoundMgr.getInstance().stopBGM();
+        this.video_ads[ad_id].load()
+            .then(() => {
+                // 加载成功后播放视频
+                this.video_ads[ad_id].show();
+            })
+            // 加载失败时直接当作玩家视频广告观看成功
+            .catch(err => {
+                wx.showModal({
+                    title: '系统提示', content: "暂时无法获取广告", showCancel: false, cancelText: "", confirmText: "确定",
+                    success: () => {
+                        this.current_video_ad_id == ad_id && success_callback() && (this.current_video_ad_id = '');
+                    }
+                })
+            });
+
+        // 兼容新老版本广告关闭按钮
+        this.video_ads[ad_id].onClose(function onCloseFunc(status) {
+            if (!status || status.isEnded) {
+                // 用户完整观看广告
+                WxKit.current_video_ad_id == ad_id && success_callback() && (WxKit.current_video_ad_id = '');
+            } else {
+                // 用户提前点击了【关闭广告】按钮,进入失败回调
+                err_callback && WxKit.current_video_ad_id == ad_id && err_callback() && (WxKit.current_video_ad_id = '');
+            }
+            // 关闭后重开背景音乐
+            SoundMgr.getInstance().playBGM();
+            // 停止监听close方法
+            WxKit.video_ads[ad_id].offClose(onCloseFunc);
+        })
+
+    }
+
+    /**
+     * banner广告调用方法
+     */
+    public static showBannerAd(ad_id: string): any {
+        // 无ad_id时弹出警告
+        if (!(ad_id)) {
+            wx.showModal({
+                title: '系统提示', content: "请填入ad_id", showCancel: false, cancelText: "", confirmText: "确定",
+                success: () => { }
+            })
+            return null;
+        }
+        // 低版本兼容方法
+        let bannerAd = typeof wx.createBannerAd == 'function' ? wx.createBannerAd({
+            adUnitId: ad_id,
+            style: {
+                left: 0,
+                top: 0,
+                width: 350
+            }
+        }) : null;
+        if (bannerAd) {
+            bannerAd.show();
+            let { screenWidth, screenHeight } = wx.getSystemInfoSync()
+            bannerAd.onResize(res => {
+                // banner广告放在底部
+                bannerAd.style.top = screenHeight - bannerAd.style.realHeight;
+            });
+            bannerAd.style.width = screenWidth;
+        }
+        return bannerAd;
+    }
+
+
+}

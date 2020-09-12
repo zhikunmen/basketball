@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BuyView" width="750" height="1334" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="_bg" source="img_x_di_png" top="0" bottom="0" left="0" right="0"/>
+	<e:Group id="m_buy_group" horizontalCenter="0" verticalCenter="0">
+		<e:Image source="img_k_kuang1_png" scale9Grid="77,27,6,7" width="650" height="900" scaleX="1" scaleY="1"/>
+		<e:Image source="img_k_taitou_png" y="0" horizontalCenter="0" x="-68" scaleX="1" scaleY="1" width="650" scale9Grid="202,8,11,48"/>
+		<e:Image id="m_close" source="img_k_guanbi_png" x="541.31" y="1.67" scaleX="1" scaleY="1"/>
+		<e:Label id="m_info" text="you can get it by watch video" y="600" horizontalCenter="0.5" size="40" x="108" scaleX="1" scaleY="1" fontFamily="SimHei" textColor="0x001d44" width="350" textAlign="center" wordWrap="true"/>
+
+		<e:Image width="430" height="430" y="119.33" scaleX="1" scaleY="1" horizontalCenter="0" source="img_k_kuang2_png"/>
+		<e:Image id="m_skin_image" y="187.06" source="mg_qiu_0_png" height="300" scaleX="1" scaleY="1" horizontalCenter="0" width="300"/>
+		<e:Image id="m_buy_btn" x="75" y="718" source="img_fuhu3_png"/>
+		<e:Label id="m_try_label" text="TRY " x="118" y="769" size="47" strokeColor="0x814f00" stroke="3" touchEnabled="false" width="220" textAlign="right"/>
+		<e:Label id="m_coin_count" text="350" x="416" y="765" size="47" strokeColor="0x814F00" stroke="3" touchEnabled="false"/>
+		<e:Image id="m_coin_image" x="346" y="753" source="img_jinbi_xiao_png" touchEnabled="false"/>
+		<e:Image id="m_video_image" x="366" y="751" source="shiping_png" touchEnabled="false"/>
+	</e:Group>
+</e:Skin>

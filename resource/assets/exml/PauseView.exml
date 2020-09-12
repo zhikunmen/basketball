@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="PauseViewSkin" width="750" height="1334" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="_bg" left="0" bottom="0" top="0" right="0" source="img_x_di_png"/>
+	<e:Image id="m_game_continue" source="endless_json.anniu_2_png" left="142" verticalCenter="0"/>
+	<e:Image id="m_game_home" source="endless_json.anniu_3_png" right="142" verticalCenter="0"/>
+</e:Skin>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="exitDialog" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" width="750" height="1334">
+
+	<e:Image id="_bg" left="0" bottom="0" top="0" right="0" source="img_x_di_png"/>
+	<e:Group id="m_exit_group" horizontalCenter="0" verticalCenter="0">
+
+
+
+
+
+		<e:Image id="_content_bg" source="img_k_kuang1_png" width="700" scale9Grid="67,23,5,5" height="600" scaleX="1" scaleY="1" horizontalCenter="0"/>
+		<e:Image id="_top_bg" source="img_k_taitou_png" width="700" scaleX="1" scaleY="1" horizontalCenter="0"/>
+		<e:Image id="m_cancel" source="img_k_guanbi_png" scaleX="1" scaleY="1" x="593.33" y="1.33"/>
+		<e:Image id="_text_bg" source="img_k_kuang2_png" y="150" width="550" anchorOffsetY="0" height="200" scaleX="1" scaleY="1" horizontalCenter="0"/>
+		<e:Label id="m_message" text="确定要退出游戏？" size="40" scaleX="1" scaleY="1" fontFamily="SimHei" textColor="0x001D44" width="550" textAlign="center" anchorOffsetX="0" y="150" horizontalCenter="0" height="200" verticalAlign="middle"/>
+		<e:Image id="m_confirm" y="408" source="img_fuhu3_png" horizontalCenter="0"/>
+		<e:Label id="m_confirm_label" text="确定" size="47" strokeColor="0x814F00" stroke="3" horizontalCenter="0" y="460" touchEnabled="false"/>
+	</e:Group>
+</e:Skin>

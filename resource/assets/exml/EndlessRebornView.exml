@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="EndlessRebornView" width="750" height="1334" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+
+
+	<e:Group verticalCenter="0" anchorOffsetY="0" horizontalCenter="0">
+		<e:Image id="_bg" source="fuhuo_1_png" width="700" scale9Grid="87,61,11,42" height="600"/>
+		<e:Image source="reborn1_json.fuhuo_2_png" y="60" horizontalCenter="0"/>
+
+
+
+
+
+
+
+
+
+
+		<e:Image id="m_reborn_btn" source="reborn1_json.fuhuo_4_png" y="480" left="30"/>
+		<e:Image id="m_pass_btn" source="reborn1_json.fuhuo_3_png" y="480" right="30"/>
+		<e:Label text="Continue?" y="223" fontFamily="SimHei" textColor="0x165194" size="36" horizontalCenter="0"/>
+		<e:Label id="m_content" text="观看一段简短视频以获得第二次机会？" y="277" textColor="0x165194" size="36" fontFamily="SimHei" width="630" verticalAlign="middle" textAlign="center" horizontalCenter="0" wordWrap="true"/>
+		<e:Label text="OK" y="480" width="249" height="90" left="30" verticalAlign="middle" textAlign="center" fontFamily="SimHei" size="48" textColor="0xdeecfd" stroke="2" strokeColor="0x003071" touchEnabled="false"/>
+		<e:Label text="NO" y="480" width="249" height="91" right="30" verticalAlign="middle" textAlign="center" touchEnabled="false" stroke="2" strokeColor="0x4d0966" size="48" fontFamily="SimHei" textColor="0xefdff8"/>
+
+	</e:Group>
+</e:Skin>

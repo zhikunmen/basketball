@@ -1,0 +1,27 @@
+{
+    "desc":"篮球 local test online",
+    "http_type":"online",
+    "sockect_type":"online",
+    "channel_id":"wx.h5wptls",
+    "appid":"35012",
+    "wxAppId":"wxe9a4b5200ab46c28",
+    "version":"v2.0",
+    "adId":"adunit-171b026696cb6506",
+    "bannerAdId":"adunit-d4fdabeb04d3f23b",
+
+    "shareInfo":[
+        {
+            "title":"教练，我想打篮球",
+            "url":"http://res.12317wan.com/resource/game/2574/basketball/share/2.png"
+        },
+        {
+            "title":"教练，我想打篮球",
+            "url":"http://res.12317wan.com/resource/game/2574/basketball/share/2.png"
+        },
+        {
+            "title":"你见过凌晨4点的洛杉矶吗？",
+            "url":"http://res.12317wan.com/resource/game/2574/basketball/share/3.png"
+        }
+    ],
+    "gameType":"wx"
+}

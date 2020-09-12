@@ -1,0 +1,14 @@
+class GameController extends GameControllerBase {
+    constructor() {
+        super(ModuleEnum.GAME);
+    }
+
+    protected show(data?: any): void {
+        super.show(data);
+    }
+
+    public hide(): void {
+        super.hide();
+        this.release();
+    }
+}

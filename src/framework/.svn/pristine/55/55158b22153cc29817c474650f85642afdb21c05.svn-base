@@ -1,0 +1,19 @@
+class RankBaseView extends DialogBaseView {
+    public m_close: eui.Button;
+
+    public constructor() {
+        super();
+        this.skinName = "resource/assets/exml/RankExml.exml"
+    }
+    protected onShow(event?: egret.Event) {
+        super.onShow(event);
+        if (GameConfig.gameType == "wx") {
+            let open_data: egret.Sprite = WxKit.linkOpenData({});
+            this.addChild(open_data);
+        }
+    }
+
+    protected onHide(event?: egret.Event) {
+        super.onHide(event);
+    }
+}

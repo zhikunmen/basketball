@@ -1,0 +1,24 @@
+{
+	"autoGenerateExmlsList": true,
+	"exmls": [
+		"resource/assets/exml/BuyView.exml",
+		"resource/assets/exml/ChangeSkinExml.exml",
+		"resource/assets/exml/EndlessRebornView.exml",
+		"resource/assets/exml/EndlessScoreView.exml",
+		"resource/assets/exml/ExitDialog.exml",
+		"resource/assets/exml/HelpView.exml",
+		"resource/assets/exml/ItemView.exml",
+		"resource/assets/exml/LoadingUIExml.exml",
+		"resource/assets/exml/LoginView.exml",
+		"resource/assets/exml/MainView.exml",
+		"resource/assets/exml/PauseView.exml",
+		"resource/assets/exml/RankDialogView.exml",
+		"resource/assets/exml/RebornViewExml.exml",
+		"resource/assets/exml/ResultView.exml",
+		"resource/assets/exml/ScoreView.exml",
+		"resource/assets/exml/SkinItemExml.exml",
+		"resource/assets/exml/SkinView.exml"
+	],
+	"skins": {},
+	"path": "resource/default.thm.json"
+}

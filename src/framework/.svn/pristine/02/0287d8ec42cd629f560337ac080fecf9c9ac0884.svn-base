@@ -1,0 +1,60 @@
+class PauseBaseView extends DialogBaseView {
+    public m_golobby_btn: eui.Button;
+    public m_goongame_btn: eui.Button;
+    public m_share_btn: eui.Button;
+
+    public constructor() {
+        super();
+        this.skinName = "resource/assets/exml/PauseView.exml";
+    }
+    protected onShow(event?: egret.Event) {
+        super.onShow(event);
+
+        GameManager.getInstance().pauseGame();
+    }
+
+    protected onHide(event?: egret.Event) {
+        super.onHide(event);
+    }
+
+
+	/**
+     * 添加监听
+     */
+    protected addListener(): void {
+        super.addListener();
+
+        this.m_golobby_btn && this.m_golobby_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.goLobbyHandler, this);
+        this.m_goongame_btn && this.m_goongame_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.goonGameHandler, this);
+        this.m_share_btn && this.m_share_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.shareHandler, this);
+    }
+
+    /**
+     * 删除监听
+     */
+    protected removeListener(): void {
+        super.removeListener();
+
+        this.m_golobby_btn && this.m_golobby_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.goLobbyHandler, this);
+        this.m_goongame_btn && this.m_goongame_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.goonGameHandler, this);
+        this.m_share_btn && this.m_share_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.shareHandler, this);
+    }
+
+    private goLobbyHandler(evt: egret.Event): void {
+        GlobalManager.getInstance().goLobby();
+    }
+    private goonGameHandler(evt: egret.Event): void {
+        GameManager.getInstance().resumeGame();
+        this.removeFromParent();
+    }
+
+    //分享
+
+    private shareHandler(evt: egret.Event): void {
+        WxKit.ZGSDKShare("PauseBaseView", "m_share_btn", "share", "base");
+    }
+
+    protected touchDarkEnable(): boolean {
+        return false;
+    }
+}

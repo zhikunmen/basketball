@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RankDialogViewSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" width="750" height="1334">
+	<e:Image id="_bg" source="main_json.img_x_di_png" left="0" top="0" bottom="0" right="0"/>
+
+
+
+
+
+
+
+	<e:Group horizontalCenter="0" verticalCenter="0">
+		<e:Image id="_content_bg" x="0" y="58.43" width="750" scale9Grid="76,29,5,4" height="900" scaleX="1" scaleY="1" source="img_k_kuang1_png"/>
+		<e:Image id="_top_bg" x="0" y="0.43" width="750" scale9Grid="190,8,5,48" scaleX="1" scaleY="1" source="common_json.img_k_taitou_png"/>
+
+		<e:Label id="_title" text="Rank" y="0.43" textAlign="center" horizontalCenter="0" size="38" fontFamily="SimHei" verticalAlign="middle" anchorOffsetY="0" height="64" stroke="2" strokeColor="0x003a75" x="337" scaleX="1" scaleY="1" width="750"/>
+		<e:Image id="m_back_btn" x="641" y="2.43" scaleX="1" scaleY="1" source="common_json.img_k_guanbi_png"/>
+		<e:Image id="_share_bg" y="816" scaleX="1" scaleY="1" source="rankbt_1_png" left="30"/>
+		<e:Label id="m_share_btn" text="Share" size="50" textColor="0xffffff" fontFamily="SimHei" stroke="2" strokeColor="0x003071" anchorOffsetY="0" height="103" verticalAlign="middle" anchorOffsetX="0" width="335" textAlign="center" scaleX="1" scaleY="1" y="816" left="30"/>
+		<e:Image id="_mode_bg" y="816" scaleX="1" scaleY="1" source="rankbt_2_png" right="30"/>
+		<e:Label id="m_mode_btn" text="Mode" y="816" size="50" fontFamily="SimHei" stroke="2" strokeColor="0x4d0966" anchorOffsetY="0" height="103" verticalAlign="middle" anchorOffsetX="0" width="335" textAlign="center" scaleX="1" scaleY="1" right="30" textColor="0xefdff8"/>
+		<e:Image width="710" height="716.61" y="65.82" horizontalCenter="0" source="img_k_kuang3_png" scale9Grid="38,10,6,3" anchorOffsetY="0"/>
+		<e:Image id="m_global_unselect" source="img_p_quanqiu2_png" x="23.67" y="64.43" scaleX="1" scaleY="1"/>
+		<e:Image id="m_friend_select" source="img_p_haoyou_1_png" x="375.33" y="64.43" scaleX="1" scaleY="1"/>
+		<e:Image id="m_global_select" source="img_p_quanqiu1_png" x="23.67" y="64.43" scaleX="1" scaleY="1"/>
+		<e:Image id="m_friend_unselect" source="img_p_haoyou_2_png" x="375.33" y="64.43" scaleX="1" scaleY="1"/>
+		<e:Label id="m_gobal_rank" text="Global List" x="21" y="64.43" anchorOffsetY="0" height="62" anchorOffsetX="0" width="355" textAlign="center" verticalAlign="middle" textColor="0xffffff" size="38" fontFamily="SimHei" stroke="3" strokeColor="0x003a75" scaleX="1" scaleY="1"/>
+		<e:Label id="m_friend_rank" text="Friend List" x="374" y="64.43" width="352" height="62" textAlign="center" verticalAlign="middle" textColor="0x8e5701" fontFamily="SimHei" strokeColor="0xfff09a" stroke="2" size="38" scaleX="1" scaleY="1"/>
+
+		<e:Scroller width="700" height="650" y="126.43" scrollPolicyH="off" scrollPolicyV="auto" horizontalCenter="0" x="25" scaleX="1" scaleY="1">
+			<e:Group>
+			<e:List id="m_list" scaleX="1" scaleY="1" itemRendererSkinName="ItemView" y="0" x="0"/>
+			</e:Group>
+		</e:Scroller>
+	</e:Group>
+
+
+</e:Skin>

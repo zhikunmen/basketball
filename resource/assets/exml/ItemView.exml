@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ItemView" width="700" height="100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:BitmapLabel id="m_item_rank_text" x="35" verticalCenter="0" font="rank_font_fnt" text="1"/>
+	<e:Image id="m_item_rank_image" x="35" verticalCenter="0" source="2048_hz_1_png"/>
+	<e:Image id="_avatar_bg" source="img_k_kuang4_jpg" x="156" verticalCenter="0"/>
+	<e:Image id="m_item_avatar" width="65" height="62" verticalCenter="-0.5" x="158"/>
+	<e:Label id="m_item_name" text="wujiaohai" x="285" verticalCenter="0" width="300" textColor="0x165194" fontFamily="SimHei"/>
+	<e:Label id="m_item_score" text="201" x="600" verticalCenter="0" textColor="0x724b00" fontFamily="SimHei"/>
+	<e:Image source="img_xian_jpg" bottom="0" width="700"/>
+</e:Skin>

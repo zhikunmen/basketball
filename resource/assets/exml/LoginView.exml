@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LoginViewexml" width="750" height="1334" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*">
+	<w:Declarations>
+		<tween:TweenGroup id="tween">
+			<tween:TweenItem target="{m_game_group}">
+				<tween:Set>
+					<tween:props>
+						<e:Object scaleX="{1}" scaleY="{1}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:To duration="900">
+					<tween:props>
+						<e:Object scaleX="{1.1}" scaleY="{1.1}"/>
+					</tween:props>
+				</tween:To>
+				<tween:To duration="900">
+					<tween:props>
+						<e:Object scaleX="{1}" scaleY="{1}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+
+
+	</w:Declarations>
+	<e:Image id="m_bg" left="0" right="0" top="0" bottom="0" source="img_bi_2_jpg" scale9Grid="93,53,564,31"/>
+	<e:Image id="m_back_btn" source="img_fanhui_png" x="30" y="30" visible="false"/>
+	<e:Image id="m_sound_btn" source="img_shengyin_png" left="120" y="30"/>
+	<e:Image id="m_vibrate_btn" source="img_zhengdong1_png" x="274" y="30" visible="false"/>
+	<e:Image id="m_logo_btn" source="img_logo_png" y="160" horizontalCenter="0"/>
+
+
+
+
+
+
+	<e:Image id="m_rank_btn" source="img_annue_3_png" right="36" bottom="50"/>
+	<e:Label id="_rank_label" text="Rank" strokeColor="0x2E0072" stroke="2" bottom="78" fontFamily="SimHei" textColor="0xE2DDFF" right="79" width="135" textAlign="center" touchEnabled="false"/>
+	<e:Image id="m_skin_btn" source="img_annue_2_png" left="36" bottom="50"/>
+	<e:Label id="_skin_label" text="Ball Skin" x="178.76" textColor="0xD2EAFF" strokeColor="0x0A2B5F" stroke="2" bottom="76" fontFamily="SimHei" touchEnabled="false"/>
+
+
+
+	<e:Image source="img_lihe_png" left="140" top="30" visible="false"/>
+	<e:Group id="m_game_group" bottom="555" horizontalCenter="0" width="548" height="167" anchorOffsetX="274" anchorOffsetY="83.5">
+		<e:Image id="m_game_start" y="36.27" x="60.79" source="bt_1_png"/>
+		<e:Image id="m_game_play" y="97.74" x="360.29" source="bt_5_png" anchorOffsetX="79" anchorOffsetY="34" touchEnabled="false"/>
+		<e:Image id="_game_start_fire" y="80.88" x="73.18" source="bt_2_png" touchEnabled="false" anchorOffsetX="33.33" anchorOffsetY="93.94"/>
+		<e:Image id="m_game_start_ball" y="83" anchorOffsetX="83" anchorOffsetY="83" x="83" source="bt_3_png"/>
+
+	</e:Group>
+	<e:Group id="m_mode_group" horizontalCenter="0" bottom="377">
+		<e:Image scaleX="1" scaleY="1" source="change_mode_png"/>
+		<e:Label id="m_mode_name" text="Time Mode" left="0" right="0" bottom="0" top="0" textAlign="center" verticalAlign="middle" size="60" italic="true" textColor="0xdaffff" stroke="2" strokeColor="0x0029ad"/>
+	</e:Group>
+
+
+
+
+
+
+
+</e:Skin>

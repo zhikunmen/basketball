@@ -1,0 +1,24 @@
+class MainLayer extends core.EUILayer {
+
+    private main: MainView;
+    private scroeView: ScroeView;
+
+    public constructor() {
+        super();
+        this.init();
+    }
+
+    private init(): void {
+        this.main = new MainView();
+        this.addChild(this.main);
+
+        this.scroeView = new ScroeView();
+        this.addChild(this.scroeView);
+    }
+
+    public release(): void {
+        super.release();
+        this.main = null;
+        this.scroeView = null;
+    }
+}

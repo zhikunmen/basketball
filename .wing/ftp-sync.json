@@ -1,0 +1,23 @@
+[
+    {
+        "name": "ftp-180420075235",
+        "host": "ftp://ftp.365you.com",
+        "user": "h5test",
+        "password": "mZB1m{LQ6QYzZ9",
+        "port": 21,
+        "protocol": "ftp",
+        "remotePath": "PhysicsBall4.0/",
+        "passive": false,
+        "debug": false,
+        "privateKeyPath": null,
+        "ignoreDir": [
+            ".out/",
+            ".git/"
+        ],
+        "ignoreFileSuffix": [
+            "diff"
+        ],
+        "diffFile": "ftpdiff-1524182036053.diff",
+        "usediffFile": true
+    }
+]

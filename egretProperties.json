@@ -1,0 +1,40 @@
+{
+	"engineVersion": "5.2.29",
+	"compilerVersion": "5.2.29",
+	"template": {},
+	"exmlPublishPolicy": "commonjs2",
+	"target": {
+		"current": "web"
+	},
+	"modules": [
+		{
+			"name": "egret"
+		},
+		{
+			"name": "game"
+		},
+		{
+			"name": "tween"
+		},
+		{
+			"name": "assetsmanager"
+		},
+		{
+			"name": "eui"
+		},
+		{
+			"name": "promise"
+		},
+		{
+			"name": "dragonBones"
+		},
+		{
+			"name": "matter",
+			"path": "./libs/matter/"
+		},
+		{
+			"name": "particle",
+			"path": "./libs/particle/"
+		}
+	]
+}

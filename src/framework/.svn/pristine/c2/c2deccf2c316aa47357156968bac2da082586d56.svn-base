@@ -1,0 +1,62 @@
+class RebornBaseView extends DialogBaseView {
+    public m_reborn_btn: eui.Button;
+    public m_pass_btn: eui.Button;
+
+    public constructor() {
+        super();
+        this.skinName = "resource/assets/exml/RebornViewExml.exml";
+    }
+    protected onShow(event?: egret.Event) {
+        super.onShow(event);
+        //显示广告还是视频
+        // if(ShareManager.getInstance().isReborn){
+            
+        // }
+    }
+
+    protected onHide(event?: egret.Event) {
+        super.onHide(event);
+    }
+
+
+	/**
+     * 添加监听
+     */
+    protected addListener(): void {
+        super.addListener();
+
+        this.m_reborn_btn && this.m_reborn_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rebornHandler, this);
+        this.m_pass_btn && this.m_pass_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.passHandler, this);
+
+    }
+
+    /**
+     * 删除监听
+     */
+    protected removeListener(): void {
+        super.removeListener();
+
+        this.m_reborn_btn && this.m_reborn_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.rebornHandler, this);
+        this.m_pass_btn && this.m_pass_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.passHandler, this);
+    }
+
+    protected rebornHandler(evt: egret.Event) {
+        GameManager.getInstance().rebornCount += 1;
+    }
+
+
+
+    //点击跳过
+    protected passHandler(evt: egret.Event): void {
+        this.removeFromParent();
+        (new GameoverView()).popUp(true, 0, 0, 0, 0);
+    }
+
+    
+    /**
+	 * 点击空白处是否关闭
+	 */
+	protected touchDarkEnable(): boolean {
+		return false;
+	}
+}

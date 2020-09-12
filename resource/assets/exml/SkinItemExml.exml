@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SkinIt" width="235" height="235" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="mainGrp" touchEnabled="true" touchChildren="false" horizontalCenter="0" verticalCenter="0" width="235" height="235">
+		<e:Image id="m_shape" y="181" source="img_s_qiudi_png" horizontalCenter="0.5"/>
+
+		<e:Image id="m_ball" scaleX="1" scaleY="1" source="mg_qiu_4_png" horizontalCenter="0" verticalCenter="0"/>
+		<e:Image id="m_selected" scaleX="1" scaleY="1" source="img_s_quan_png" horizontalCenter="0" verticalCenter="0"/>
+		<e:Image id="m_skins_mask" scaleX="1" scaleY="1" source="img_qiumengban_png" horizontalCenter="0" verticalCenter="0"/>
+		<e:Image id="m_video" x="95" y="199" source="img_shiping_png"/>
+		<e:Image id="m_coin" x="71" y="200" width="32" height="32" source="img_jinbi_xiao_png"/>
+		<e:Label id="m_price" text="200" x="108" y="200"/>
+
+	</e:Group>
+</e:Skin>

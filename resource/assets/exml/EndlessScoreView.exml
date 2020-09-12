@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ScroeViewExml" width="750" height="1334" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*">
+	<w:Declarations>
+		<tween:TweenGroup id="coin">
+			<tween:TweenItem target="{m_goin_image}">
+				<tween:Set>
+					<tween:props>
+						<e:Object scaleX="{1}" scaleY="{1}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:To duration="100">
+					<tween:props>
+						<e:Object scaleX="{-1}" scaleY="{1}"/>
+					</tween:props>
+				</tween:To>
+				<tween:To duration="100">
+					<tween:props>
+						<e:Object scaleX="{1}" scaleY="{1}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+
+	</w:Declarations>
+	<e:Image left="0" bottom="0" right="0" top="0" source="img_bj_jpg" scale9Grid="93,17,564,13" locked="true"/>
+    <e:Group width="100%" height="100%" y="0" x="0">
+
+
+
+		<e:Image id="m_vibrate" y="30" source="img_zhengdong1_png" x="644.8" visible="false"/>
+			<e:Group id="m_progress_group" y="171" horizontalCenter="0" visible="false">
+				<e:Image id="m_progress_bg" source="img_xuetiao_h2_png" y="17.5" x="42" scaleX="1" scaleY="1"/>
+				<e:Image id="m_progress" scaleX="1" scaleY="1" source="img_xuetiao_h1_png" y="19.51" x="52"/>
+				<e:Image id="m_progress_mask" scaleX="1" scaleY="1" source="img_xuetiao_h1_png" y="19.5" x="51"/>
+				<e:Image id="m_zhen_panel" source="endless_json.naozhong_1_png"/>
+				<e:Image id="m_zhen_short" source="endless_json.naozhong_2_png" x="32" y="32" anchorOffsetX="5" anchorOffsetY="16" rotation="90"/>
+				<e:Image id="m_zhen_long" source="endless_json.naozhong_3_png" x="32" y="32" anchorOffsetX="5" anchorOffsetY="5" rotation="-90"/>
+			</e:Group>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<e:Image id="m_coin_total" bottom="0" horizontalCenter="0" source="img_coin_bg_png"/>
+			<e:Label id="m_gold" text="0" x="319.21" size="31" fontFamily="SimHei" anchorOffsetY="0" height="37.06" anchorOffsetX="0" width="150" textAlign="center" verticalAlign="middle" bottom="17"/>
+			<e:Image id="m_goin_image" x="292.02" anchorOffsetX="23" anchorOffsetY="24" source="jinbi_xie_png" width="46" height="48" scaleX="1" scaleY="1" y="1292" visible="false"/>
+			<e:Group id="m_shot_group" y="260" x="500" visible="false">
+				<e:Label id="m_shot_type" text="高弧度球" size="48" textColor="0xfff000" fontFamily="SimHei" stroke="3" strokeColor="0x1b58aa" scaleX="1" scaleY="1" horizontalCenter="0"/>
+				<e:Label id="m_combo" text="5X" stroke="3" strokeColor="0x1b58aa" size="48" fontFamily="SimHei" scaleX="1" scaleY="1" horizontalCenter="0" y="60"/>
+			</e:Group>
+
+
+			<e:Label id="m_score" text="0" y="428.48" horizontalCenter="0.5" stroke="5" strokeColor="0x003766" size="105" fontFamily="SimHei" anchorOffsetX="26.5" anchorOffsetY="52.5"/>
+			<e:Image id="m_mask" left="0" right="0" bottom="0" top="0" source="img_x_di_png" visible="false"/>
+	</e:Group>
+</e:Skin>

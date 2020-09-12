@@ -1,0 +1,83 @@
+class GameoverBaseView extends DialogBaseView {
+    public m_onceatime_btn:eui.Button;
+    public m_share_btn:eui.Button;
+    public m_score_label:eui.BitmapLabel;
+    public m_histroy:eui.Label;
+    public m_rank_btn:eui.Button;
+    public m_return_lobby_btn:eui.Button;
+
+    public constructor() {
+        super();
+        this.skinName = "resource/assets/exml/GameOver.exml";
+    }
+    protected onShow(event?: egret.Event) {
+        super.onShow(event);
+
+        GameManager.getInstance().rebornCount = 0;
+
+        GameManager.getInstance().gameover();
+
+        if (this.m_score_label) {
+            this.m_score_label.text = GameManager.getInstance().scoreManager.totalScore + "";
+        }
+
+        //上报分数
+        WxKit.uploadScore(GameManager.getInstance().scoreManager.totalScore)
+
+        if (this.m_histroy) {
+            this.m_histroy.text = "历史最高分：" + UserManager.getInstance().maxScore;
+        }
+
+    }
+
+    protected onHide(event?: egret.Event) {
+        super.onHide(event);
+    }
+
+
+	/**
+     * 添加监听
+     */
+    protected addListener(): void {
+        super.addListener();
+
+        this.m_share_btn && this.m_share_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.shareHandler, this);
+        this.m_return_lobby_btn && this.m_return_lobby_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.returnLobbyHandler, this);
+        this.m_rank_btn && this.m_rank_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rankHandler, this);
+        this.m_onceatime_btn && this.m_onceatime_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onceAgainHandler, this);
+    }
+
+    /**
+     * 删除监听
+     */
+    protected removeListener(): void {
+        super.removeListener();
+
+        this.m_share_btn && this.m_share_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.shareHandler, this);
+        this.m_return_lobby_btn && this.m_return_lobby_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.returnLobbyHandler, this);
+        this.m_rank_btn && this.m_rank_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.rankHandler, this);
+        this.m_onceatime_btn && this.m_onceatime_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onceAgainHandler, this);
+    }
+
+    private onceAgainHandler(evt: egret.Event): void {
+        this.removeFromParent();
+        GameManager.getInstance().restart();
+    }
+
+    protected shareHandler(evt: egret.Event): void {
+        
+    }
+
+    private returnLobbyHandler(evt: egret.Event): void {
+        GlobalManager.getInstance().goLobby();
+    }
+
+    protected touchDarkEnable(): boolean {
+        return false;
+    }
+
+    private rankHandler(evt: egret.Event): void {
+        let rankView: RankView = new RankView();
+        rankView.popUp(true, 0, 0, 0, 0);
+    }
+}
